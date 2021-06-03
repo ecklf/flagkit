@@ -1,6 +1,7 @@
 # @flagkit/react
 
 FlagKit creators: [madebybowtie](https://github.com/madebybowtie/FlagKit).
+
 This library provides exported SVG Components for React instead of relying on a CDN like `react-flagkit`.
 
 ## Installation
