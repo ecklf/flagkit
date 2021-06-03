@@ -7,8 +7,18 @@ export const templateReact = (
 
   return tsTemplate.ast`
       import * as React from "react";
+      
+      interface Props extends React.ComponentProps<'svg'> {
+        size?: number;
+        width?: number;
+        height?: number;
+      }
 
-      const ${componentName} = ({ width = 21, height = 15, ...props }: React.ComponentProps<'svg'>) => {
+      const ${componentName} = ({ size = 15, width = 21, height = 15, ...props }: Props) => {
+        if (size !== height) {
+          width = width * (size / height);
+          height = height * (size / height);
+        }
         return (
           ${jsx}
         )

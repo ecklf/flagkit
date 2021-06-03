@@ -1,16 +1,17 @@
 {
+  "private": true,
   "name": "flagkit",
   "author": "ecklf",
   "license": "MIT",
   "scripts": {
     "fetch": "rimraf FlagKit/ && git clone https://github.com/madebybowtie/FlagKit",
     "gen": "ts-node --project bin/tsconfig.json --files bin/build.ts",
-    "cleanup": "./cleanup.sh",
+    "postbuild": "./postbuild.sh",
     "emit:react": "tsc --project ./tsconfig.react.json --emitDeclarationOnly --outDir ./react && cp react/*.d.ts react/esm && cp react/flags/*.d.ts react/esm/flags",
     "emit:react-native": "tsc --project ./tsconfig.react-native.json --emitDeclarationOnly --outDir ./react-native && cp react-native/*.d.ts react-native/esm && cp react-native/flags/*.d.ts react-native/esm/flags",
     "compile": "node compile.js && yarn emit:react && yarn emit:react-native",
-    "build:regen": "yarn fetch && yarn gen && yarn compile && yarn cleanup",
-    "build": "yarn compile && yarn cleanup"
+    "build:refetch": "yarn fetch && yarn gen && yarn compile && yarn postbuild",
+    "build": "yarn gen && yarn compile && yarn postbuild"
   },
   "devDependencies": {
     "@svgr/core": "^5.4.0",
@@ -20,6 +21,7 @@
     "@types/node": "^15.6.1",
     "@types/react": "^17.0.8",
     "@types/react-native": "^0.64.6",
+    "dedent-js": "^1.0.1",
     "esbuild": "^0.12.3",
     "junk": "^3.1.0",
     "react": "^17.0.2",
@@ -33,7 +35,5 @@
     "react": ">=16.8",
     "react-native-svg": ">=9"
   },
-  "dependencies": {
-    "dedent-js": "^1.0.1"
-  }
+  "dependencies": {}
 }

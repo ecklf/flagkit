@@ -1,10 +1,16 @@
 import * as React from "react";
+interface Props extends React.ComponentProps<"svg"> {
+  size?: number;
+  width?: number;
+  height?: number;
+}
 
-const GL = ({
-  width = 21,
-  height = 15,
-  ...props
-}: React.ComponentProps<"svg">) => {
+const GL = ({ size = 15, width = 21, height = 15, ...props }: Props) => {
+  if (size !== height) {
+    width = width * (size / height);
+    height = height * (size / height);
+  }
+
   return (
     <svg
       xmlnsXlink="http://www.w3.org/1999/xlink"
