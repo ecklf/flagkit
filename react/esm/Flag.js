@@ -1,0 +1,1 @@
+import M from"react";import*as T from"./flags";const B=({code:G,...S})=>{const C=T[`FlagIcon${G.replace("/-/g","$")}`];return M.createElement(M.Fragment,null,M.createElement(C,{...S}))};var I=B;export{I as default};

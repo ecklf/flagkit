@@ -71,7 +71,7 @@ const getIcons = async () => {
     files.filter(junk.not).map(async (file) => ({
       svg: await fs.readFile(`${iconDir}/${file}`),
       name: `${file.replace(/\.svg$/, "")}`,
-      componentName: `${file.replace(/\.svg$/, "").replace(/-/g, "$")}`,
+      componentName: `FlagIcon${file.replace(/\.svg$/, "").replace(/-/g, "$")}`,
     }))
   );
 };
@@ -97,13 +97,23 @@ const exportIcons = async () => {
     await fs.writeFile(`./src/react-native/flags/index.ts`, exportStr, {
       flag: "a",
     });
+
+    // write to main index file
+    const indexExportStr = `export { default as ${componentName.replace(
+      "/$/g",
+      ""
+    )} } from './flags/${componentName}';\n`;
+    await fs.writeFile(`./src/react/index.ts`, indexExportStr, { flag: "a" });
+    await fs.writeFile(`./src/react-native/index.ts`, indexExportStr, {
+      flag: "a",
+    });
   }
 
   // Create Flag component
   const iconCodes = icons.map((ic, i) => `"${ic.name}"`).join(" | ");
   const reactFlagComponent = dedent(`
     import React from "react";
-    import * as Icons from "./flags";
+    import * as Flags from "./flags";
 
     export type FlagIconCode = ${iconCodes};
 
@@ -113,21 +123,28 @@ const exportIcons = async () => {
 
     const Flag = ({ code, ...props }: FlagIconProps) => {
       //@ts-ignore
-      const svg = Icons[code.replace("/-/g", "$")];
+      const svg = Flags[\`FlagIcon$\{code.replace("/-/g", "$")\}\`];
       return <>{React.createElement(svg, { ...props })}</>;
     };
 
     export default Flag;
   `);
 
-  await fs.writeFile("./src/react/index.tsx", reactFlagComponent);
+  await fs.writeFile("./src/react/Flag.tsx", reactFlagComponent);
+  await fs.writeFile(
+    `./src/react/index.ts`,
+    `export type { FlagIconCode, FlagIconProps } from "./Flag"; import Flag from "./Flag"; export default Flag;`,
+    {
+      flag: "a",
+    }
+  );
 
   const reactNativeFlagComponent = dedent(`
     import React from "react";
     import Svg, {
       SvgProps,
     } from "react-native-svg";
-    import * as Icons from "./flags";
+    import * as Flags from "./flags";
 
     export type FlagIconCode = ${iconCodes};
 
@@ -138,14 +155,21 @@ const exportIcons = async () => {
 
     const Flag = ({ code, ...props }: FlagIconProps) => {
       //@ts-ignore
-      const svg = Icons[code.replace("/-/g", "$")];
+      const svg = Flags[\`FlagIcon$\{code.replace("/-/g", "$")\}\`];
       return <>{React.createElement(svg, { ...props })}</>;
     };
 
     export default Flag;
   `);
 
-  await fs.writeFile("./src/react-native/index.tsx", reactNativeFlagComponent);
+  await fs.writeFile("./src/react-native/Flag.tsx", reactNativeFlagComponent);
+  await fs.writeFile(
+    `./src/react-native/index.ts`,
+    `export type { FlagIconCode, FlagIconProps } from "./Flag"; import Flag from "./Flag"; export default Flag;`,
+    {
+      flag: "a",
+    }
+  );
 };
 
 (async () => {

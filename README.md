@@ -1,4 +1,4 @@
-# flagkit
+# @flagkit
 
 ## Installation
 
