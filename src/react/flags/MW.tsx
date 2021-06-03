@@ -1,0 +1,39 @@
+import * as React from "react";
+
+const MW = ({
+  width = 21,
+  height = 15,
+  ...props
+}: React.ComponentProps<"svg">) => {
+  return (
+    <svg width={width} height={height} viewBox="0 0 21 15" {...props}>
+      <defs>
+        <linearGradient id="prefix__a" x1="50%" x2="50%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFF" />
+          <stop offset="100%" stopColor="#F0F0F0" />
+        </linearGradient>
+        <linearGradient id="prefix__b" x1="50%" x2="50%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor="#262626" />
+          <stop offset="100%" stopColor="#0D0D0D" />
+        </linearGradient>
+        <linearGradient id="prefix__c" x1="50%" x2="50%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor="#E42038" />
+          <stop offset="100%" stopColor="#CC162C" />
+        </linearGradient>
+        <linearGradient id="prefix__d" x1="50%" x2="50%" y1="0%" y2="100%">
+          <stop offset="0%" stopColor="#47B849" />
+          <stop offset="100%" stopColor="#399E3B" />
+        </linearGradient>
+      </defs>
+      <g fill="none" fillRule="evenodd">
+        <path fill="url(#prefix__a)" d="M0 0h21v15H0z" />
+        <path fill="url(#prefix__b)" d="M0 0h21v5H0z" />
+        <circle cx={10.5} cy={5.5} r={3.5} fill="url(#prefix__c)" />
+        <path fill="url(#prefix__c)" d="M0 5h21v5H0z" />
+        <path fill="url(#prefix__d)" d="M0 10h21v5H0z" />
+      </g>
+    </svg>
+  );
+};
+
+export default MW;

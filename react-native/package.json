@@ -1,0 +1,33 @@
+{
+  "name": "@flagkit/react-native",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "./esm/index.js",
+  "author": "ecklf",
+  "license": "MIT",
+  "description": "",
+  "keywords": [
+    "flagkit",
+    "svg",
+    "react",
+    "react native"
+  ],
+  "homepage": "https://github.com/ecklf/flagkit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecklf/flagkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ecklf/flagkit/issues"
+  },
+  "files": [
+    "*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-native-svg": ">=9"
+  }
+}
