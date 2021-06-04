@@ -1,5 +1,8 @@
 # @flagkit/react-native
 
+[![npm version](https://img.shields.io/npm/v/@flagkit/react-native.svg)](https://www.npmjs.com/package/@flagkit/react-native)
+[![npm downloads](https://img.shields.io/npm/dm/@flagkit/react-native.svg)](https://www.npmjs.com/package/@flagkit/react-native)
+
 FlagKit creators: [madebybowtie](https://github.com/madebybowtie/FlagKit).
 
 This library provides exported SVG Components for React Native.
@@ -30,20 +33,6 @@ import { FlagIconDE } from "@flagkit/react-native";
 
 const App = () => {
   return <FlagIconDE />;
-};
-
-export default App;
-```
-
-All Flags (will result in huge import size):
-
-```tsx
-import React from "react";
-// FlagIconCode is a type with all available country codes
-import Flag, { FlagIconCode } from "@flagkit/react-native";
-
-const App = () => {
-  return <Flag code="DE" />;
 };
 
 export default App;
