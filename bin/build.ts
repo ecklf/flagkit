@@ -1,5 +1,4 @@
 import svgr from "@svgr/core";
-import dedent from "dedent-js";
 import { promises as fs } from "fs";
 import { templateReact, templateReactNative } from "./template";
 const junk = require("junk");
@@ -100,7 +99,7 @@ const exportIcons = async () => {
 
     // write to main index file
     const indexExportStr = `export { default as ${componentName.replace(
-      "/$/g",
+      /\$/g,
       ""
     )} } from './flags/${componentName}';\n`;
     await fs.writeFile(`./src/react/index.ts`, indexExportStr, { flag: "a" });
@@ -108,68 +107,6 @@ const exportIcons = async () => {
       flag: "a",
     });
   }
-
-  // Create Flag component
-  const iconCodes = icons.map((ic, i) => `"${ic.name}"`).join(" | ");
-  const reactFlagComponent = dedent(`
-    import React from "react";
-    import * as Flags from "./flags";
-
-    export type FlagIconCode = ${iconCodes};
-
-    export interface FlagIconProps extends React.ComponentProps<"svg"> {
-      code: FlagIconCode;
-    }
-
-    const Flag = ({ code, ...props }: FlagIconProps) => {
-      //@ts-ignore
-      const svg = Flags[\`FlagIcon$\{code.replace("/-/g", "$")\}\`];
-      return <>{React.createElement(svg, { ...props })}</>;
-    };
-
-    export default Flag;
-  `);
-
-  await fs.writeFile("./src/react/Flag.tsx", reactFlagComponent);
-  await fs.writeFile(
-    `./src/react/index.ts`,
-    `export type { FlagIconCode, FlagIconProps } from "./Flag"; import Flag from "./Flag"; export default Flag;`,
-    {
-      flag: "a",
-    }
-  );
-
-  const reactNativeFlagComponent = dedent(`
-    import React from "react";
-    import Svg, {
-      SvgProps,
-    } from "react-native-svg";
-    import * as Flags from "./flags";
-
-    export type FlagIconCode = ${iconCodes};
-
-    export interface FlagIconProps extends SvgProps {
-      size?: number;
-      code: FlagIconCode;
-    }
-
-    const Flag = ({ code, ...props }: FlagIconProps) => {
-      //@ts-ignore
-      const svg = Flags[\`FlagIcon$\{code.replace("/-/g", "$")\}\`];
-      return <>{React.createElement(svg, { ...props })}</>;
-    };
-
-    export default Flag;
-  `);
-
-  await fs.writeFile("./src/react-native/Flag.tsx", reactNativeFlagComponent);
-  await fs.writeFile(
-    `./src/react-native/index.ts`,
-    `export type { FlagIconCode, FlagIconProps } from "./Flag"; import Flag from "./Flag"; export default Flag;`,
-    {
-      flag: "a",
-    }
-  );
 };
 
 (async () => {
