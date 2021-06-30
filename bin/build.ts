@@ -5,7 +5,7 @@ const junk = require("junk");
 
 const resetSrcDir = async () => {
   try {
-    await fs.rmdir(`./src`, { recursive: true });
+    await fs.rm(`./src`, { recursive: true });
     await fs.mkdir(`./src/react/flags`, { recursive: true });
     await fs.mkdir(`./src/react-native/flags`, { recursive: true });
   } catch (error) {
