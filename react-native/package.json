@@ -5,7 +5,7 @@
   "module": "./esm/index.js",
   "author": "ecklf",
   "license": "MIT",
-  "description": "",
+  "description": "Exported FlagKit SVG Components for React Native",
   "keywords": [
     "flagkit",
     "svg",
