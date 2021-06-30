@@ -14,7 +14,7 @@ This library provides exported SVG Components for React Native.
 ### yarn
 
 ```sh
-yarn add react-native-svg @flagkit-svg/react-native
+yarn add react-native-svg @flagkit/react-native
 ```
 
 ### npm

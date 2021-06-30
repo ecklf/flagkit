@@ -8,9 +8,9 @@
 
 ```sh
 // react
-yarn add @flagkit-svg/react
+yarn add @flagkit/react
 // react-native
-yarn add react-native-svg @flagkit-svg/react-native
+yarn add react-native-svg @flagkit/react-native
 ```
 
 ### npm
